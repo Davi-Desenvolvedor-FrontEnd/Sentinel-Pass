@@ -90,7 +90,7 @@ export default function App() {
       <View style={styles.imageContainer}>
         <Image
           style={styles.imageIcon}
-          source={require("../assets/images/SentinelPassLogo#2.png")}
+          source={require("../assets/icon.png")}
         />
       </View>
       <Text style={styles.title}>Sentinel Pass</Text>
