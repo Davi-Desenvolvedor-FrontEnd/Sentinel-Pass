@@ -8,12 +8,16 @@ import {
   ViewStyle,
 } from "react-native";
 import React from "react";
+import Colors from "@/colors/theme";
+import AppColors from "@/colors/theme";
+import globalStyles from "@/colors/global_style";
 
 interface ButtonProps extends PressableProps {
   label: string;
   onPress: () => void;
-  backColor: "#004297" | "#34934C" | "#e85d04";
+  backColor: "Primary" | "Secondary" | "Terciary";
   icon?: React.ReactNode;
+  disable?: boolean
   style?: StyleProp<ViewStyle>;
 }
 
@@ -22,10 +26,10 @@ export default function ({
   onPress,
   backColor,
   icon,
+  disable,
   style,
   ...rest
 }: ButtonProps) {
-  const styles = theme(backColor);
   return (
     <Pressable
       {...rest}
@@ -35,33 +39,32 @@ export default function ({
         styles.button,
         {
           justifyContent: icon ? "flex-start" : "center",
+          backgroundColor: AppColors(backColor),
+          opacity: disable ? 0.4 : 1
         },
       ]}
+      disabled={disable}
     >
       {icon ?? <></>}
-      <Text style={styles.textButton}>{label}</Text>
+      <Text style={[styles.textButton, globalStyles.text]}>{label}</Text>
     </Pressable>
   );
 }
 
-function theme(color: string) {
-  return StyleSheet.create({
-    button: {
-      width: "90%",
-      backgroundColor: color,
-      height: 60,
-      borderRadius: 6,
-      alignItems: "center",
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-      gap: 10,
-      elevation: 5,
-      flexDirection: "row",
-    },
-    textButton: {
-      color: "#fff",
-      fontSize: 20,
-      fontWeight: "600",
-    },
-  });
-}
+const styles = StyleSheet.create({
+  button: {
+    width: "90%",
+    height: 60,
+    borderRadius: 6,
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    gap: 10,
+    elevation: 5,
+    flexDirection: "row",
+  },
+  textButton: {
+    fontSize: 20,
+    fontWeight: "400",
+  },
+});

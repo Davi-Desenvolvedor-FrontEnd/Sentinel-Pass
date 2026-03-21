@@ -5,33 +5,30 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "app",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "icon": "./assets/logoAPP.png",
     "ios": {
       "supportsTablet": true,
-      "icon": "./assets/icon.png"
+      "icon": "./assets/logoAPP.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/logoAPP.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.daviaugusto479.app"
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/icon.png"
+      "favicon": "./assets/logoAPP.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icon.png",
-          "imageWidth": 200,
+          "image": "./assets/logoAPP.png",
+          "imageWidth": 400,
           "resizeMode": "contain"
         }
       ],
@@ -40,6 +37,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "cc05256b-111f-4945-8d0d-013d40dbea3c"
+      }
     }
   }
 }

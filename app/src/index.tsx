@@ -26,6 +26,8 @@ import Alert from "@/components/Alert";
 import { Divider, Switch } from "react-native-paper";
 import Card from "@/components/Card";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Colors from "@/colors/theme";
+import globalStyles from "@/colors/global_style";
 
 export default function App() {
   const [routeIndex, setRouteIndex] = useState<number>(0);
@@ -84,37 +86,38 @@ export default function App() {
     <>
       <StatusBar backgroundColor={"#025985"} />
       <LinearGradient
-        colors={["#025985", "#53dcf5"]}
+        // Azul profundo para azul vibrante
+        colors={["#05387af6", "#1f7a8c"]}
         style={styles.background}
       />
       <View style={styles.imageContainer}>
         <Image
           style={styles.imageIcon}
-          source={require("../assets/icon.png")}
+          source={require("../assets/logoAPP.png")}
         />
       </View>
-      <Text style={styles.title}>Sentinel Pass</Text>
+      <Text style={[styles.title, globalStyles.text]}>Sentinel Pass</Text>
       <View style={styles.divider} />
-      <Text style={styles.subTitle}>
+      <Text style={[styles.subTitle, globalStyles.text]}>
         Protege suas senhas com Sentinel Pass, o melhor app de senhas do Brasil.
       </Text>
       <View style={styles.buttonContainer}>
         <Button
           label="Salvar senha existente"
           onPress={() => setRouteIndex(2)}
-          backColor="#34934C"
+          backColor="Terciary"
           icon={<Entypo name="key" size={22} color="#fff" />}
         />
         <Button
           label="Criar nova senha"
           onPress={() => setRouteIndex(1)}
-          backColor="#004297"
+          backColor="Primary"
           icon={<Entypo name="plus" size={26} color="#fff" />}
         />
         <Button
           label="Minhas senhas"
           onPress={() => setRouteIndex(3)}
-          backColor="#e85d04"
+          backColor="Secondary"
           icon={
             <FontAwesome
               style={{ marginLeft: 6 }}
@@ -192,10 +195,10 @@ export default function App() {
         <Header
           title="Criar Nova Senha"
           onBack={() => setRouteIndex(0)}
-          backColor="#004297"
+          backColor="Primary"
         />
         <View style={createPasswordStyles.sliderContainer}>
-          <Text style={createPasswordStyles.titleSlider}>Tamanho da senha</Text>
+          <Text style={[createPasswordStyles.titleSlider]}>Tamanho da senha</Text>
           <Slider
             value={passwordSize}
             onValueChange={(size: number) => setPasswordSize(size)}
@@ -205,8 +208,8 @@ export default function App() {
             minimumValue={0}
             maximumValue={12}
           />
-          <Text style={createPasswordStyles.textSlider}>
-            <Text style={createPasswordStyles.spanSlider}>
+          <Text style={[createPasswordStyles.textSlider]}>
+            <Text style={[createPasswordStyles.spanSlider]}>
               {passwordSize.toFixed(0)}
             </Text>{" "}
             caracteres
@@ -220,7 +223,7 @@ export default function App() {
         </View>
         <View style={createPasswordStyles.swicthContainer}>
           <View style={createPasswordStyles.swicthContent}>
-            <Text style={createPasswordStyles.switchText}>
+            <Text style={[createPasswordStyles.switchText]}>
               Letras Maiusculas
             </Text>
             <Switch
@@ -233,7 +236,7 @@ export default function App() {
           </View>
           <Divider bold />
           <View style={createPasswordStyles.swicthContent}>
-            <Text style={createPasswordStyles.switchText}>
+            <Text style={[createPasswordStyles.switchText]}>
               Letras Minusculas
             </Text>
             <Switch
@@ -246,7 +249,7 @@ export default function App() {
           </View>
           <Divider bold />
           <View style={createPasswordStyles.swicthContent}>
-            <Text style={createPasswordStyles.switchText}>Números</Text>
+            <Text style={[createPasswordStyles.switchText]}>Números</Text>
             <Switch
               style={createPasswordStyles.switch}
               color="#fff"
@@ -257,7 +260,7 @@ export default function App() {
           </View>
           <Divider bold />
           <View style={createPasswordStyles.swicthContent}>
-            <Text style={createPasswordStyles.switchText}>
+            <Text style={[createPasswordStyles.switchText]}>
               Caracteres Especiais
             </Text>
             <Switch
@@ -288,20 +291,21 @@ export default function App() {
         />
         <Button
           label="Criar senha"
-          backColor="#004297"
+          backColor="Primary"
           onPress={() => createPasswordHandle()}
           style={{ marginTop: 20 }}
+          disable={passwordName == "" || passwordSize == 0}
         />
         <Modal visible={modalPasswordVisible} transparent animationType="fade">
           <View style={createPasswordStyles.passwordModal}>
             <View style={createPasswordStyles.passwordContainer}>
               <View style={createPasswordStyles.passwordHeader}>
-                <Text style={createPasswordStyles.passwordTitle}>
+                <Text style={[createPasswordStyles.passwordTitle]}>
                   Sua senha foi gerada com sucesso!
                 </Text>
               </View>
               <View style={createPasswordStyles.passwordContent}>
-                <Text style={createPasswordStyles.passwordText}>
+                <Text style={[createPasswordStyles.passwordText]}>
                   {password}
                 </Text>
                 <MaterialIcons name="content-copy" size={24} color="black" />
@@ -311,7 +315,7 @@ export default function App() {
                 onPress={() => {
                   addNewPassword();
                 }}
-                backColor="#34934C"
+                backColor="Terciary"
                 style={{
                   alignSelf: "center",
                 }}
@@ -353,7 +357,7 @@ export default function App() {
         <Header
           title="Salvar Senha Existente"
           onBack={() => setRouteIndex(0)}
-          backColor="#34934C"
+          backColor="Terciary"
         />
         <View style={savePasswordStyles.formContainer}>
           <Input
@@ -376,12 +380,13 @@ export default function App() {
           />
         </View>
         <Button
-          backColor="#34934C"
+          backColor="Terciary"
           label="Salvar senha"
           onPress={() => handleSavePasswordExists()}
           style={{
             marginTop: 50,
           }}
+          disable={passwordName === "" || passwordExists === ""}
         />
       </>
     );
@@ -409,7 +414,7 @@ export default function App() {
         <Header
           title="Minhas Senhas"
           onBack={() => setRouteIndex(0)}
-          backColor="#e85d04"
+          backColor="Terciary"
         />
         <FlatList
           data={passwordList}
@@ -431,7 +436,7 @@ export default function App() {
             />
           )}
           ListEmptyComponent={
-            <Text style={{ textAlign: "center", marginTop: 40, color: "#666" }}>
+            <Text style={[{ textAlign: "center", marginTop: 40, color: "#666" }]}>
               Nenhuma senha salva
             </Text>
           }
@@ -456,7 +461,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#d2d3d449",
   },
   background: {
     position: "absolute",
@@ -483,7 +487,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subTitle: {
-    color: "#fff",
     fontSize: 16,
     fontWeight: "semibold",
     textAlign: "center",
@@ -597,13 +600,13 @@ const createPasswordStyles = StyleSheet.create({
     right: 0,
     left: 10,
     top: 70,
-    width: "100%"
+    width: "100%",
   },
   alertStyleTwo: {
     right: 0,
     left: 10,
-    top: 220
-  }
+    top: 220,
+  },
 });
 
 const savePasswordStyles = StyleSheet.create({
@@ -617,6 +620,6 @@ const savePasswordStyles = StyleSheet.create({
   alertStyle: {
     right: 20,
     left: 20,
-    top: 190
-  }
+    top: 190,
+  },
 });
